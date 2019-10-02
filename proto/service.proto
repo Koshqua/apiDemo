@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package proto;
+
+message Request{
+    string Port = 1;
+}
+
+message Response{
+    string Port = 1;
+}
+
+service WritringService {
+    rpc Write(Request) returns (Response);
+}

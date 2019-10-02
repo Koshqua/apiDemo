@@ -1,0 +1,6 @@
+Testing output to zip...
+Testing output to jar...
+No Java runtime present, requesting install.
+Warning:  'jar' command not available.  Skipping test.
+PASS
+PASS google/protobuf/compiler/zip_output_unittest.sh (exit status: 0)
