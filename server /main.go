@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net"
-	"runtime"
 	"strings"
 
 	"github.com/koshqua/apiDemo/proto"
@@ -27,6 +27,7 @@ type Port struct {
 
 var Ports = make(map[string]Port)
 
+//function writes a new port to Port map
 func (s *server) Write(ctx context.Context, request *proto.Request) (*proto.Response, error) {
 	port := request.GetPort()
 	var Port Port
@@ -35,8 +36,22 @@ func (s *server) Write(ctx context.Context, request *proto.Request) (*proto.Resp
 	Ports[Port.Unlocs[0]] = Port
 	return &proto.Response{Port: port}, nil
 }
+
+//function returns particular port by Unlocs values
+func (s *server) Get(ctx context.Context, request *proto.Request) (*proto.Response, error) {
+	port := request.GetPort()
+	fmt.Println(port)
+	prt := Ports[port]
+	fmt.Println(prt)
+	p, err := json.Marshal(prt)
+	if err != nil {
+		panic(err)
+	}
+	return &proto.Response{Port: string(p)}, nil
+}
+
 func main() {
-	runtime.GOMAXPROCS(10)
+
 	listener, err := net.Listen("tcp", ":3000")
 	if err != nil {
 		panic(err)

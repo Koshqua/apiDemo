@@ -33,6 +33,18 @@ func main() {
 	client := proto.NewWritringServiceClient(conn)
 	g := gin.Default()
 
+	//request to get a particular port by Unloc value
+	g.GET("/ports/:id", func(ctx *gin.Context) {
+		id := ctx.Param("id")
+		req := &proto.Request{Port: id}
+		if response, err := client.Get(ctx, req); err == nil {
+			ctx.JSON(http.StatusOK, gin.H{
+				"result": fmt.Sprint(response.Port),
+			})
+		}
+	})
+
+	//request to read a json file and send parts of data to server
 	g.POST("/ports", func(ctx *gin.Context) {
 		body := ctx.Request.Body
 		dec := json.NewDecoder(body)
@@ -50,14 +62,13 @@ func main() {
 				var Port Port
 				PrintMemUsage()
 				dec.Decode(&Port)
-				PrintMemUsage()
 				if len(Port.Unlocs) > 0 {
 					p, err := json.Marshal(Port)
 					if err != nil {
 						panic(err)
 					}
 					req := &proto.Request{Port: string(p)}
-					PrintMemUsage()
+
 					if response, err := client.Write(ctx, req); err == nil {
 						ctx.JSON(http.StatusOK, gin.H{
 							"added": fmt.Sprint(response.Port),
