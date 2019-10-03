@@ -1,7 +1,7 @@
 # Golang microservices assignment task
 
 The app is made without any microservices framework. I only used gin for routing.
-- App parses given grc spreaded to 1 mln strings with usage of ~68mb of os memory 
+- App parses given json spreaded to 1 mln strings with usage of ~68mb of os memory 
 - There are two end points, one is for parsing json and adding to map
 - Second endpoint is for retrieving data from the map. 
 - Ofcourse, data in map is not persistent, so before getting any data from map, you need to write it first
