@@ -9,7 +9,7 @@ import (
 	"runtime"
 
 	"github.com/gin-gonic/gin"
-	"github.com/koshqua/apiDemo/proto"
+	"github.com/koshqua/apiDemo/client/proto"
 	"google.golang.org/grpc"
 )
 
